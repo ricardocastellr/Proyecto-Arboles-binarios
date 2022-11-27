@@ -48,6 +48,59 @@ class Arbol{
     }
 }
 
+class Lista{
+    constructor(){
+        this.first = null;
+        this.last = null;
+    }
+
+    agregar(nuevo){
+        if(this.first == null){
+            this.first = nuevo;
+            this.last = nuevo;
+        }
+        else{
+            nuevo.before = this.last;
+            this.last.next = nuevo;
+            this.last = nuevo
+        }
+    }
+
+    crearArbol(){ //Creación del arbol
+        let aux = this.first;
+        while(aux){
+            //Condición de jerarquía con divisón y multiplicación.
+            if((aux != null) && ((aux.simbolo == "/") || (aux.simbolo == "*"))){
+                aux.hijoIzquierda = aux.before;
+                aux.hijoDerecha = aux.next;
+                aux.next = aux.next.next;
+                aux.before = aux.before.before;
+                if(aux.before != null)
+                    aux.before.next = aux;
+                if(aux.next != null)
+                    aux.next.before=aux
+            }
+            aux = aux.next;
+        }
+        aux = this.first;
+        while(aux){
+            // Condición de jerarquía con resta y suma.
+            if((aux.simbolo == "-") || (aux.simbolo == "+")){
+                aux.hijoIzquierda = aux.before;
+                aux.hijoDerecha = aux.next;
+                aux.next = aux.next.next;
+                aux.before = aux.before.before;
+                if(aux.before != null)
+                    aux.before.next = aux;
+                if(aux.next != null)
+                    aux.next.before = aux;    
+            }
+            if(aux.next == null)
+                return aux;
+            aux = aux.next;
+        }
+    }
+}
 
 
 
