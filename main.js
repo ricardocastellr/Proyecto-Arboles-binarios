@@ -69,7 +69,7 @@ class Lista{
     crearArbol(){ //Creación del arbol
         let aux = this.first;
         while(aux){
-            //Condición de jerarquía con divisón y multiplicación.
+            //Condición de jerarquía con potencia.
             if((aux != null) && ((aux.simbolo == "^"))){
                 aux.hijoIzquierda = aux.before;
                 aux.hijoDerecha = aux.next;
