@@ -19,13 +19,13 @@ class Arbol{
             console.log("");
         else
             this.preOrderRecursiva(this.raiz);
-        return this.lista;
+        return this.resultado;
     }
 
     preOrderRecursiva(nodoX){
         this.resultado += `${nodoX.simbolo}`;
         if(nodoX.hijoIzquierda != null)
-            this.preOrderRecusiva(nodoX.hijoIzquierda);
+            this.preOrderRecursiva(nodoX.hijoIzquierda);
         if(nodoX.hijoDerecha != null)
             this.preOrderRecursiva(nodoX.hijoDerecha);
     }
@@ -70,7 +70,22 @@ class Lista{
         let aux = this.first;
         while(aux){
             //Condición de jerarquía con divisón y multiplicación.
-            if((aux != null) && ((aux.simbolo == "/") || (aux.simbolo == "*"))){
+            if((aux != null) && ((aux.simbolo == "^"))){
+                aux.hijoIzquierda = aux.before;
+                aux.hijoDerecha = aux.next;
+                aux.next = aux.next.next;
+                aux.before = aux.before.before;
+                if(aux.before != null)
+                    aux.before.next = aux;
+                if(aux.next != null)
+                    aux.next.before=aux
+            }
+            aux = aux.next;
+        }
+        aux = this.first;
+        while(aux){
+            //Condición de jerarquía con divisón y multiplicación.
+            if((aux.simbolo == "/") || (aux.simbolo == "*")){
                 aux.hijoIzquierda = aux.before;
                 aux.hijoDerecha = aux.next;
                 aux.next = aux.next.next;
