@@ -23,11 +23,28 @@ class Arbol{
     }
 
     preOrderRecursiva(nodoX){
-        this.resultado += `${nodoX.simbolo}`
+        this.resultado += `${nodoX.simbolo}`;
         if(nodoX.hijoIzquierda != null)
             this.preOrderRecusiva(nodoX.hijoIzquierda);
         if(nodoX.hijoDerecha != null)
             this.preOrderRecursiva(nodoX.hijoDerecha);
+    }
+
+    postOrder(){
+        this.resultado= "";
+        if(this.raiz == null)
+            console.log("");
+        else
+            this.postOrderRecursiva(this.raiz);
+        return this.resultado;
+    }
+
+    postOrderRecursiva(nodoX){
+        this.resultado += `${nodoX.simbolo}`;
+        if(nodoX.hijoIzquierda != null)
+            this.postOrderRecursiva(nodoX.hijoIzquierda);
+        if(nodoX.hijoDerecha != null)
+            this.postOrderRecursiva(nodoX.hijoDerecha);
     }
 }
 
