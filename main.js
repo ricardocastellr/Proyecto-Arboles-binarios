@@ -7,7 +7,7 @@ class Nodo{
         this.before = null;
     }
 }
-class Arbol{
+class ArbolBinario{
     constructor(){
         this.raiz = null;
         this.resultado = "";
@@ -40,11 +40,11 @@ class Arbol{
     }
 
     postOrderRecursiva(nodoX){
-        this.resultado += `${nodoX.simbolo}`;
         if(nodoX.hijoIzquierda != null)
             this.postOrderRecursiva(nodoX.hijoIzquierda);
         if(nodoX.hijoDerecha != null)
             this.postOrderRecursiva(nodoX.hijoDerecha);
+        this.resultado += `${nodoX.simbolo}`;
     }
 }
 
@@ -117,6 +117,25 @@ class Lista{
     }
 }
 
+class Analisis{
+    convertirResultado(exp,resultado){
+        for (let i=0; i<exp.length ;i++) {
+            let nodo = new Nodo(exp[i])
+            resultado.agregar(nodo)
+        }
+    }
+}
 
+//Expresión que deseee.
+let expresion = "3-1";
 
-
+//NO MOVER, NECESARIO PARA FUNCIONAR
+let arbolbinario = new ArbolBinario(); // Creamos el arbol binario.
+let lista = new Lista(); // Creamos la lista.
+let analisis = new Analisis(); // Creamos el analisis.
+analisis.convertirResultado(expresion,lista); // Convertimos la expresión a una lista doble enlazada.
+arbolbinario.raiz = lista.crearArbol(); // La raíz del arbol binario es igual a crear arbol, empezamos la creación del arbol desde la raíz.
+let preOrder = arbolbinario.preOrder(); // Creamos el preOrder y lo guardamos en una variable.
+let postOrder = arbolbinario.postOrder(); // Creamos el postOrder y lo guardamos en una variable.
+console.log("preOrder: " + preOrder + "."); // Imprimimos el preOrder.
+console.log("postOrder: " + postOrder + "."); // Imprimimos el postOrder.
