@@ -118,24 +118,72 @@ class Lista{
 }
 
 class Analisis{
-    convertirResultado(exp,resultado){
-        for (let i=0; i<exp.length ;i++) {
-            let nodo = new Nodo(exp[i])
-            resultado.agregar(nodo)
+    convertirExpresion(expresion, lista){
+        for (let i=0; i<expresion.length ;i++) {
+            let nodo = new Nodo(Array.from(expresion)[i])
+            lista.agregar(nodo);
         }
+    }
+
+    acomodo(expresionOrder){
+        let vectorOrder = Array.from(expresionOrder); // Convertimos la expresión Order a array.
+        let numeros = [];
+        if(vectorOrder[0] == "+" || 
+        vectorOrder[0] == "-" || 
+        vectorOrder[0] == "*" || 
+        vectorOrder[0] == "/" || 
+        vectorOrder[0] == "^"){ 
+            // Si la primera posición es igual a alguna operación.
+            // Es decir que es preOrder.
+            while(vectorOrder.length != 0) {
+                // Eliminamos la ultima posición del Order en array y lo guardamos en la variable temp.
+                let temp = vectorOrder.pop();
+                if(temp != "+" && 
+                temp != "-" && 
+                temp != "*" && 
+                temp != "/" &&
+                temp != "^")
+                    // Si es un número lo convertimos a entero y lo metemos al array numeros.
+                    numeros.push(parseInt(temp));
+                else{
+                    // Si no es número guardamos las ultimas dos posiciones en un nuevo array.
+                    // Así aplicaremos la operación entre las dos posiciones.
+                    // pos0 + pos1, pos0 - pos1, pos0 * pos1, pos0 / pos1, pos0 ** pos1.
+                    let nums = [numeros.pop(),numeros.pop()];
+                    if(temp == "+")
+                        numeros.push(nums[0]+nums[1]);
+                    if(temp == "-")
+                        numeros.push(nums[0]-nums[1]);
+                    if(temp == "*")
+                        numeros.push(nums[0]*nums[1]);
+                    if(temp == "/")
+                        numeros.push(nums[0]/nums[1]);
+                    if(temp == "^")
+                        numeros.push(nums[0]**nums[1]);
+                }
+            }
+        }
+        return numeros[0];
     }
 }
 
 //Expresión que deseee.
-let expresion = "3-1";
+let expresion = "2*3*4/8-4*3/6-9/3*6/2^2";
 
 //NO MOVER, NECESARIO PARA FUNCIONAR
 let arbolbinario = new ArbolBinario(); // Creamos el arbol binario.
 let lista = new Lista(); // Creamos la lista.
 let analisis = new Analisis(); // Creamos el analisis.
-analisis.convertirResultado(expresion,lista); // Convertimos la expresión a una lista doble enlazada.
+analisis.convertirExpresion(expresion,lista); // Convertimos la expresión a una lista doble enlazada.
 arbolbinario.raiz = lista.crearArbol(); // La raíz del arbol binario es igual a crear arbol, empezamos la creación del arbol desde la raíz.
 let preOrder = arbolbinario.preOrder(); // Creamos el preOrder y lo guardamos en una variable.
 let postOrder = arbolbinario.postOrder(); // Creamos el postOrder y lo guardamos en una variable.
-console.log("preOrder: " + preOrder + "."); // Imprimimos el preOrder.
-console.log("postOrder: " + postOrder + "."); // Imprimimos el postOrder.
+console.log(`Expresión: ${expresion}`);
+console.log("--------------------------------------------------------------------------");
+console.log(`preOrder: ${preOrder}.`); // Imprimimos el preOrder.
+console.log(`postOrder: ${postOrder}.`); // Imprimimos el postOrder.
+console.log("--------------------------------------------------------------------------");
+// Resultado de la expresión en base al preOrder.
+console.log(`Resultado en preOrder: ${analisis.acomodo(preOrder)}.`)
+// Resultado de la expresión en base al postOrder.
+console.log(`Resultado en postOrder: ${analisis.acomodo(postOrder)}.`)
