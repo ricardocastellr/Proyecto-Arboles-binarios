@@ -93,82 +93,82 @@ class ArbolBinario{
             this.postOrderRecursiva(nodoX.hijoDerecha);
         this.resultado += `${nodoX.dato}`;
     }
-
-    acomodo(expresionOrder){
-        let vectorOrder = Array.from(expresionOrder); // Convertimos la expresión Order a array.
-        let resultado = [];
-        if(vectorOrder[0] == "+" || 
-            vectorOrder[0] == "-" || 
-            vectorOrder[0] == "*" || 
-            vectorOrder[0] == "/" || 
-            vectorOrder[0] == "^"){ 
-            // Si la primera posición es igual a alguna operación.
-            // Es decir que es preOrder.
-            while(vectorOrder.length != 0) {
-                // Eliminamos la ultima posición del Order en array y lo guardamos en la variable aux.
-                // Esto porque las ultimas posiciones siempre son números cuando es preOrder.
-                let aux = vectorOrder.pop();
-                if(aux == "+" ||
-                   aux == "-" ||
-                   aux == "*" ||
-                   aux == "/" ||
-                   aux == "^"){
-                    // Si no es número guardamos las ultimas dos posiciones en un nuevo array.
-                    // También eliminamos dichas posiciones del array resultado.
-                    // Así aplicaremos la operación entre las dos posiciones.
-                    // pos0 + pos1, pos0 - pos1, pos0 * pos1, pos0 / pos1, pos0 ** pos1.
-                    let par = [resultado.pop(), resultado.pop()];
-                    if(aux == "+")
-                        resultado.push(par[0] + par[1]);
-                    if(aux == "-")
-                        resultado.push(par[0] - par[1]);
-                    if(aux == "*")
-                        resultado.push(par[0] * par[1]);
-                    if(aux == "/")
-                        resultado.push(par[0] / par[1]);
-                    if(aux == "^")
-                        resultado.push(par[0] ** par[1]);
-                }else
-                    // Si es un número lo convertimos a entero y lo metemos al array resultado.
-                    resultado.push(parseInt(aux));
-            }
-        }else{ // Si la primera posición NO es una operación.
-               // Es decir que es postOrder.
-            while(vectorOrder.length != 0) {
-                // Eliminamos la primera posición del Order en array y lo guardamos en la variable aux.
-                // Esto porque las primeras posiciones siempre son números cuando es postOrder.
-                let aux = vectorOrder.shift();
-                if(aux == "+" ||
-                   aux == "-" ||
-                   aux == "*" ||
-                   aux == "/" ||
-                   aux == "^"){
-                    // Si no es número guardamos las ultimas dos posiciones en un nuevo array.
-                    // También eliminamos dichas posiciones del array resultado.
-                    // Así aplicaremos la operación entre las dos posiciones.
-                    // pos1 + pos0, pos1 - pos0, pos1 * pos0, pos1 / pos0, pos1 ** pos0.
-                    let par = [resultado.pop(), resultado.pop()];
-                    if(aux == "+")
-                        resultado.push(par[1] + par[0]);
-                    if(aux == "-")
-                        resultado.push(par[1] - par[0]);
-                    if(aux == "*")
-                        resultado.push(par[1] * par[0]);
-                    if(aux == "/")
-                        resultado.push(par[1] / par[0]);
-                    if(aux == "^")
-                        resultado.push(par[1] ** par[0]);
-                }else
-                    // Si es un número lo convertimos a entero y lo metemos al array resultado.
-                    resultado.push(parseInt(aux));
-            }
-        }
-    
-        return resultado;
-    }
 }
 
-//Expresión que deseee.
+function acomodo(expresionOrder){
+    let vectorOrder = Array.from(expresionOrder); // Convertimos la expresión Order a array.
+    let resultado = [];
+    if(vectorOrder[0] == "+" || 
+        vectorOrder[0] == "-" || 
+        vectorOrder[0] == "*" || 
+        vectorOrder[0] == "/" || 
+        vectorOrder[0] == "^"){ 
+        // Si la primera posición es igual a alguna operación.
+        // Es decir que es preOrder.
+        while(vectorOrder.length != 0) {
+            // Eliminamos la ultima posición del Order en array y lo guardamos en la variable aux.
+            // Esto porque las ultimas posiciones siempre son números cuando es preOrder.
+            let aux = vectorOrder.pop();
+            if(aux == "+" ||
+               aux == "-" ||
+               aux == "*" ||
+               aux == "/" ||
+               aux == "^"){
+                // Si no es número guardamos las ultimas dos posiciones en un nuevo array.
+                // También eliminamos dichas posiciones del array resultado.
+                // Así aplicaremos la operación entre las dos posiciones.
+                // pos0 + pos1, pos0 - pos1, pos0 * pos1, pos0 / pos1, pos0 ** pos1.
+                let par = [resultado.pop(), resultado.pop()];
+                if(aux == "+")
+                    resultado.push(par[0] + par[1]);
+                if(aux == "-")
+                    resultado.push(par[0] - par[1]);
+                if(aux == "*")
+                    resultado.push(par[0] * par[1]);
+                if(aux == "/")
+                    resultado.push(par[0] / par[1]);
+                if(aux == "^")
+                    resultado.push(par[0] ** par[1]);
+            }else
+                // Si es un número lo convertimos a entero y lo metemos al array resultado.
+                resultado.push(parseInt(aux));
+        }
+    }else{ // Si la primera posición NO es una operación.
+           // Es decir que es postOrder.
+        while(vectorOrder.length != 0) {
+            // Eliminamos la primera posición del Order en array y lo guardamos en la variable aux.
+            // Esto porque las primeras posiciones siempre son números cuando es postOrder.
+            let aux = vectorOrder.shift();
+            if(aux == "+" ||
+               aux == "-" ||
+               aux == "*" ||
+               aux == "/" ||
+               aux == "^"){
+                // Si no es número guardamos las ultimas dos posiciones en un nuevo array.
+                // También eliminamos dichas posiciones del array resultado.
+                // Así aplicaremos la operación entre las dos posiciones.
+                // pos1 + pos0, pos1 - pos0, pos1 * pos0, pos1 / pos0, pos1 ** pos0.
+                let par = [resultado.pop(), resultado.pop()];
+                if(aux == "+")
+                    resultado.push(par[1] + par[0]);
+                if(aux == "-")
+                    resultado.push(par[1] - par[0]);
+                if(aux == "*")
+                    resultado.push(par[1] * par[0]);
+                if(aux == "/")
+                    resultado.push(par[1] / par[0]);
+                if(aux == "^")
+                    resultado.push(par[1] ** par[0]);
+            }else
+                // Si es un número lo convertimos a entero y lo metemos al array resultado.
+                resultado.push(parseInt(aux));
+        }
+    }
+
+    return resultado;
+}
+
+//Expresión que deseee, si va a ingresar una es necesario comentar todas las expresiones de ejemplo.
 let expresion = "";
 
 //Expresiones de ejemplo.
@@ -190,6 +190,6 @@ console.log(`preOrder: ${preOrder}`); // Imprimimos el preOrder.
 console.log(`postOrder: ${postOrder}`); // Imprimimos el postOrder.
 console.log("--------------------------------------------------------------------------");
 // Resultado de la expresión en base al preOrder.
-console.log(`Resultado en preOrder: ${arbolbinario.acomodo(preOrder)}`)
+console.log(`Resultado en preOrder: ${acomodo(preOrder)}`)
 // Resultado de la expresión en base al postOrder.
-console.log(`Resultado en postOrder: ${arbolbinario.acomodo(postOrder)}`)
+console.log(`Resultado en postOrder: ${acomodo(postOrder)}`)
