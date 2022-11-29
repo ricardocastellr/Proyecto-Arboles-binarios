@@ -3,8 +3,6 @@ class Nodo{
         this.dato = dato;
         this.hijoDerecha = null;
         this.hijoIzquierda = null;
-        this.next = null;
-        this.before = null;
     }
 }
 class ArbolBinario{
@@ -105,7 +103,7 @@ function acomodo(expresionOrder){
         vectorOrder[0] == "^"){ 
         // Si la primera posición es igual a alguna operación.
         // Es decir que es preOrder.
-        while(vectorOrder.length != 0) {
+        while(vectorOrder.length) {
             // Eliminamos la ultima posición del Order en array y lo guardamos en la variable aux.
             // Esto porque las ultimas posiciones siempre son números cuando es preOrder.
             let aux = vectorOrder.pop();
@@ -135,7 +133,7 @@ function acomodo(expresionOrder){
         }
     }else{ // Si la primera posición NO es una operación.
            // Es decir que es postOrder.
-        while(vectorOrder.length != 0) {
+        while(vectorOrder.length) {
             // Eliminamos la primera posición del Order en array y lo guardamos en la variable aux.
             // Esto porque las primeras posiciones siempre son números cuando es postOrder.
             let aux = vectorOrder.shift();
@@ -190,6 +188,6 @@ console.log(`preOrder: ${preOrder}`); // Imprimimos el preOrder.
 console.log(`postOrder: ${postOrder}`); // Imprimimos el postOrder.
 console.log("--------------------------------------------------------------------------");
 // Resultado de la expresión en base al preOrder.
-console.log(`Resultado en preOrder: ${acomodo(preOrder)}`)
+console.log(`Resultado en preOrder: ${acomodo(preOrder)}`);
 // Resultado de la expresión en base al postOrder.
-console.log(`Resultado en postOrder: ${acomodo(postOrder)}`)
+console.log(`Resultado en postOrder: ${acomodo(postOrder)}`);
